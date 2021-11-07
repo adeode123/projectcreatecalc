@@ -12,13 +12,13 @@ def test_add():
 def test_subtract():
     # Testing the subtract function of the calculator
     result = main.subtract(4, 2)
-    assert result() == 2
+    assert result == 2
 
 
 def test_multiply():
     # Testing the multiply function of the calculator
     result = main.multiply(4, 2)
-    assert result() == 8
+    assert result == 8
 
 
 def test_divide():

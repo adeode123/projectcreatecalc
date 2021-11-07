@@ -28,6 +28,6 @@ def test_divide():
 
 
 def test_divide_by_zero_does_not_give_error():
-   """ Testing divide by zero does not give an exception """
-   result = main.divide(4, 0)
-   assert(not(isinstance(result, Exception)))
+    """ Testing divide by zero does not give an exception """
+    result = main.divide(4, 0)
+    assert not isinstance(result, Exception)

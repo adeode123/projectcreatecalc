@@ -1,22 +1,22 @@
 # Calculator
 # Test for addition
-def add(a, b):
-    return a + b
+def add(first_num, second_num):
+    return first_num + second_num
 
 
 # Test for subtraction
-def subtract(a, b):
-    return a - b
+def subtract(first_num, second_num):
+    return first_num - second_num
 
 
 # Test for multiplication
-def multiply(a, b):
-    return a * b
+def multiply(first_num, second_num):
+    return first_num * second_num
 
 
 # Test for division
-def divide(a, b):
+def divide(first_num, second_num):
     try:
-        return a/b
+        return first_num/second_num
     except ZeroDivisionError:
         print("division by zero is not allowed")

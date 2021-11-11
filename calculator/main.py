@@ -2,11 +2,12 @@
 
 
 class Calculator:
+    """ Calculator class """
+    calculator_history = []
 
-    def __init__(self,first_num,second_num):
+    def __init__(self, first_num, second_num):
         self.first_num = first_num
         self.second_num = second_num
-        self.history = []
 
     @staticmethod
     def get_history():
@@ -35,7 +36,7 @@ class Calculator:
         return Calculator.calculator_history[-1].get("result", None)
 
     @staticmethod
-    def last_calculation_object():
+    def get_last_calculation_object():
         """ Get last calculation object """
         return Calculator.calculator_history[-1].get("object", None)
 
@@ -105,20 +106,14 @@ class Calculator:
 
         if operation == 'divide':
             divide_object = Divide(first_num=self.first_num, second_num=self.second_num)
-            try:
-                result = divide_object.divide()
-                Calculator.add_calculation_to_history({
-                    "result": result,
-                    "object": divide_object
-                })
-                return result
+            result = divide_object.divide()
+            Calculator.add_calculation_to_history({
+                "result": result,
+                "object": divide_object
+            })
+            return result
 
-            except ZeroDivisionError:
-                print("Division by zero is not allowed")
-                return None
-
-        else:
-            return "Invalid Operation"
+        return "Invalid Operation"
 
 
 class Add(Calculator):

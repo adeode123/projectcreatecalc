@@ -36,6 +36,13 @@ def fixture_random_values():
     return (random.randint(1, 20) for _ in range(num_values))
 
 
+@pytest.fixture(name="random_values_with_zero")
+def fixture_random_values():
+    """ Fixture to generate two random values """
+    num_values = random.randint(1, 10)
+    return (0 for _ in range(num_values))
+
+
 @pytest.fixture(name="calculator_object")
 def fixture_calculator_object(random_values):
     """ Fixture to generate calculator object """
@@ -131,6 +138,11 @@ def test_calculator_division(calculator_object, random_values):
     assert calculator_object.division(*random_values) == divide_helper(*random_values)
 
 
+def test_calculator_division_by_zero_not_allowed(calculator_object, random_values_with_zero):
+    """ Test calculator static method division by 0 returns None """
+    assert calculator_object.division(*random_values_with_zero) is None
+
+
 def test_add_calculator_factory(random_values):
     """ Test calculator object factory for add operation """
     res = tuple(random_values)
@@ -191,3 +203,10 @@ def test_divide_class(random_values):
     temp = tuple(random_values)
     divide = Divide.create(*temp)
     assert divide.divide() == divide_helper(*temp)
+
+
+def test_divide_class_with_zero(random_values_with_zero):
+    """ Test divide class """
+    temp = tuple(random_values_with_zero)
+    divide = Divide.create(*temp)
+    assert divide.divide() is None

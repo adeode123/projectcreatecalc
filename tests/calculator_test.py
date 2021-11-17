@@ -37,7 +37,7 @@ def fixture_random_values():
 
 
 @pytest.fixture(name="random_values_with_zero")
-def fixture_random_values():
+def fixture_random_values_with_zero():
     """ Fixture to generate two random values """
     num_values = random.randint(1, 10)
     return (0 for _ in range(num_values))

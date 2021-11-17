@@ -57,20 +57,31 @@ class Calculator:
         return num_1 + num_2
 
     @staticmethod
-    def subtraction(num_1, num_2):
+    def subtraction(*tuple_args: tuple):
         """ Subtract """
-        return num_1 - num_2
+        result = 0
+        for arg in tuple_args:
+            result = arg - result
+        return result
 
     @staticmethod
-    def multiplication(num_1, num_2):
+    def multiplication(*tuple_args: tuple):
         """ Multiplication """
-        return num_1 * num_2
+        result = 1
+        values = list(tuple_args)
+        for val in values:
+            result = val * result
+        return result
 
     @staticmethod
-    def division(num_1, num_2):
+    def division(*tuple_args: tuple):
         """ Division """
         try:
-            return num_1/num_2
+            result = 1
+            values = list(tuple_args)
+            for val in values:
+                result = val / result
+            return result
         except ZeroDivisionError:
             print("Division by zero is not allowed")
             return None
@@ -87,7 +98,7 @@ class Calculator:
             return result
 
         if operation == 'subtract':
-            subtract_object = Subtract(first_num=self.first_num, second_num=self.second_num)
+            subtract_object = Subtract.create(*self.values)
             result = subtract_object.subtract()
             Calculator.add_calculation_to_history({
                 "result": result,
@@ -96,7 +107,7 @@ class Calculator:
             return result
 
         if operation == 'multiply':
-            multiply_object = Multiply(first_num=self.first_num, second_num=self.second_num)
+            multiply_object = Multiply.create(*self.values)
             result = multiply_object.multiply()
             Calculator.add_calculation_to_history({
                 "result": result,
@@ -105,7 +116,7 @@ class Calculator:
             return result
 
         if operation == 'divide':
-            divide_object = Divide(first_num=self.first_num, second_num=self.second_num)
+            divide_object = Divide.create(*self.values)
             result = divide_object.divide()
             Calculator.add_calculation_to_history({
                 "result": result,
@@ -129,7 +140,10 @@ class Subtract(Calculator):
 
     def subtract(self):
         """ Subtract from child class"""
-        return self.first_num - self.second_num
+        result = 0
+        for value in self.values:
+            result = value - result
+        return result
 
 
 class Multiply(Calculator):
@@ -137,7 +151,10 @@ class Multiply(Calculator):
 
     def multiply(self):
         """ Multiply from child class """
-        return self.first_num * self.second_num
+        result = 1
+        for value in self.values:
+            result = value * result
+        return result
 
 
 class Divide(Calculator):
@@ -146,7 +163,10 @@ class Divide(Calculator):
     def divide(self):
         """ Divide from child class """
         try:
-            return self.first_num / self.second_num
+            result = 1
+            for value in self.values:
+                result = value / result
+            return result
         except ZeroDivisionError:
             print("Division by zero is not allowed")
             return None

@@ -1,13 +1,32 @@
 """ Calculator """
 
 
-class Calculator:
+class Calculation:
+    """ Abstract base class for Calculations"""
+
+    # pylint: disable=too-few-public-methods
+    def __init__(self, values):
+        self.values = values
+
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        pass
+
+
+class Calculator(Calculation):
     """ Calculator class """
     calculator_history = []
 
-    def __init__(self, first_num, second_num):
-        self.first_num = first_num
-        self.second_num = second_num
+    def __init__(self, values):
+        super().__init__(self)
+        self.values = values
+
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
 
     @staticmethod
     def get_history():
@@ -52,16 +71,20 @@ class Calculator:
         return len(Calculator.calculator_history)
 
     @staticmethod
-    def addition(num_1, num_2):
+    def addition(*tuple_args: tuple):
         """ Add """
-        return num_1 + num_2
+        result = 0
+        for arg in tuple_args:
+            result = arg + result
+        return result
 
     @staticmethod
     def subtraction(*tuple_args: tuple):
         """ Subtract """
         result = 0
-        for arg in tuple_args:
-            result = arg - result
+        values = list(tuple_args)
+        for val in values:
+            result = val - result
         return result
 
     @staticmethod
@@ -89,7 +112,7 @@ class Calculator:
     def factory(self, operation):
         """ Factory helper method """
         if operation == 'add':
-            add_object = Add(first_num=self.first_num, second_num=self.second_num)
+            add_object = Add.create(*self.values)
             result = add_object.add()
             Calculator.add_calculation_to_history({
                 "result": result,
@@ -130,13 +153,28 @@ class Calculator:
 class Add(Calculator):
     """ Add inherited from Calculator"""
 
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
+
     def add(self):
         """ Add from child class"""
-        return self.first_num + self.second_num
+        result = 0
+        for val in self.values:
+            result = val + result
+        return result
 
 
 class Subtract(Calculator):
     """ Subtract inherited from Calculator """
+
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
 
     def subtract(self):
         """ Subtract from child class"""
@@ -149,6 +187,12 @@ class Subtract(Calculator):
 class Multiply(Calculator):
     """ Multiply inherited from Calculator """
 
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
+
     def multiply(self):
         """ Multiply from child class """
         result = 1
@@ -159,6 +203,12 @@ class Multiply(Calculator):
 
 class Divide(Calculator):
     """ Divide inherited from Calculator """
+
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
 
     def divide(self):
         """ Divide from child class """

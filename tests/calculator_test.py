@@ -4,24 +4,48 @@ import pytest
 from calculator.main import Calculator, Add, Subtract, Multiply, Divide
 
 
-@pytest.fixture(name="two_random_values")
-def fixture_two_random_values():
+def divide_helper(*values):
+    """ divide helper """
+    result = 1
+    for val in values:
+        result = val / result
+    return result
+
+
+def multiply_helper(*values):
+    """ Multiply helper """
+    print(f"Multiply helper values are {list(values)}")
+    result = 1
+    for val in values:
+        result = val * result
+    return result
+
+
+def subtract_helper(*values):
+    """ Subtract helper """
+    result = 0
+    for val in values:
+        result = val - result
+    return result
+
+
+@pytest.fixture(name="random_values")
+def fixture_random_values():
     """ Fixture to generate two random values """
-    return random.randint(1, 10), random.randint(1, 20)
+    num_values = random.randint(1, 10)
+    return (random.randint(1, 20) for _ in range(num_values))
 
 
 @pytest.fixture(name="calculator_object")
-def fixture_calculator_object(two_random_values):
+def fixture_calculator_object(random_values):
     """ Fixture to generate calculator object """
-    num_1, num_2 = two_random_values
-    return Calculator(num_1, num_2)
+    return Calculator.create(*random_values)
 
 
 @pytest.fixture(name="add")
-def fixture_add(two_random_values):
+def fixture_add(random_values):
     """ Fixture to generate calculator object """
-    num_1, num_2 = two_random_values
-    return Add(num_1, num_2)
+    return Add(random_values)
 
 
 def test_get_history(calculator_object):
@@ -87,102 +111,84 @@ def test_count_history(calculator_object):
     assert calculator_object.count_history() == 2
 
 
-def test_calculator_addition(calculator_object, two_random_values):
+def test_calculator_addition(calculator_object, random_values):
     """ Test calculator static method addition """
-    num_1, num_2 = two_random_values
-    assert calculator_object.addition(num_1, num_2) == num_1 + num_2
+    assert calculator_object.addition(*random_values) == sum(random_values)
 
 
-def test_calculator_subtraction(calculator_object, two_random_values):
+def test_calculator_subtraction(calculator_object, random_values):
     """ Test calculator static method subtraction """
-    num_1, num_2 = two_random_values
-    assert calculator_object.subtraction(num_1, num_2) == num_1 - num_2
+    assert calculator_object.subtraction(*random_values) == subtract_helper(*random_values)
 
 
-def test_calculator_multiplication(calculator_object, two_random_values):
+def test_calculator_multiplication(calculator_object, random_values):
     """ Test calculator static method multiplication """
-    num_1, num_2 = two_random_values
-    assert calculator_object.multiplication(num_1, num_2) == num_1 * num_2
+    assert calculator_object.multiplication(*random_values) == multiply_helper(*random_values)
 
 
-def test_calculator_division(calculator_object, two_random_values):
+def test_calculator_division(calculator_object, random_values):
     """ Test calculator static method division """
-    num_1, num_2 = two_random_values
-    assert calculator_object.division(num_1, num_2) == num_1 / num_2
+    assert calculator_object.division(*random_values) == divide_helper(*random_values)
 
 
-def test_calculator_division_by_zero_not_allowed(calculator_object, two_random_values):
-    """ Test calculator static method division by 0 returns None """
-    num_1, _ = two_random_values
-    assert calculator_object.division(num_1, 0) is None
-
-
-def test_add_calculator_factory(two_random_values):
+def test_add_calculator_factory(random_values):
     """ Test calculator object factory for add operation """
-    num_1, num_2 = two_random_values
-    calculator = Calculator(num_1, num_2)
-    assert calculator.factory("add") == num_1 + num_2
+    res = tuple(random_values)
+    calculator = Calculator.create(*res)
+    assert calculator.factory("add") == sum(res)
 
 
-def test_subtract_calculator_factory(two_random_values):
+def test_subtract_calculator_factory(random_values):
     """ Test calculator object factory for subtract operation """
-    num_1, num_2 = two_random_values
-    calculator = Calculator(num_1, num_2)
-    assert calculator.factory("subtract") == num_1 - num_2
+    res = tuple(random_values)
+    calculator = Calculator.create(*res)
+    assert calculator.factory("subtract") == subtract_helper(*res)
 
 
-def test_multiply_calculator_factory(two_random_values):
+def test_multiply_calculator_factory(random_values):
     """ Test calculator object factory for multiply operation """
-    num_1, num_2 = two_random_values
-    calculator = Calculator(num_1, num_2)
-    assert calculator.factory("multiply") == num_1 * num_2
+    res = tuple(random_values)
+    calculator = Calculator.create(*res)
+    assert calculator.factory("multiply") == multiply_helper(*res)
 
 
-def test_divide_calculator_factory(two_random_values):
+def test_divide_calculator_factory(random_values):
     """ Test calculator object factory for divide operation """
-    num_1, num_2 = two_random_values
-    calculator_obj = Calculator(num_1, num_2)
-    assert calculator_obj.factory("divide") == num_1 / num_2
+    res = tuple(random_values)
+    calculator = Calculator.create(*res)
+    assert calculator.factory("divide") == divide_helper(*res)
 
 
-def test_calculator_factory_return_invalid_operation(two_random_values):
+def test_calculator_factory_return_invalid_operation(random_values):
     """ Test calculator factory returns Invalid operation when the operation is not supported"""
-    num_1, num_2 = two_random_values
-    calculator_obj = Calculator(num_1, num_2)
+    calculator_obj = Calculator.create(*random_values)
     assert calculator_obj.factory("random operation") == "Invalid Operation"
 
 
-def test_add_class(two_random_values):
+def test_add_class(random_values):
     """ Test add class """
-    num_1, num_2 = two_random_values
-    add = Add(num_1, num_2)
-    assert add.add() == num_1 + num_2
+    temp = tuple(random_values)
+    add = Add.create(*temp)
+    assert add.add() == sum(temp)
 
 
-def test_subtract_class(two_random_values):
+def test_subtract_class(random_values):
     """ Test subtract class """
-    num_1, num_2 = two_random_values
-    subtract = Subtract(num_1, num_2)
-    assert subtract.subtract() == num_1 - num_2
+    temp = tuple(random_values)
+    subtract = Subtract.create(*temp)
+    assert subtract.subtract() == subtract_helper(*temp)
 
 
-def test_multiply_class(two_random_values):
+def test_multiply_class(random_values):
     """ Test multiply class"""
-    num_1, num_2 = two_random_values
-    multiply = Multiply(num_1, num_2)
-    assert multiply.multiply() == num_1 * num_2
+    temp = tuple(random_values)
+    multiply = Multiply.create(*temp)
+    assert multiply.multiply() == multiply_helper(*temp)
 
 
-def test_divide_class(two_random_values):
+def test_divide_class(random_values):
     """ Test divide class """
-    num_1, num_2 = two_random_values
-    divide = Divide(num_1, num_2)
-    assert divide.divide() == num_1 / num_2
+    temp = tuple(random_values)
+    divide = Divide.create(*temp)
+    assert divide.divide() == divide_helper(*temp)
 
-
-def test_divide_zero_class(two_random_values):
-    """ Test Divide class when dividing by 0 """
-    num_1, _ = two_random_values
-    num_2 = 0
-    divide = Divide(num_1, num_2)
-    assert divide.divide() is None

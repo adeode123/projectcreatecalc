@@ -191,4 +191,3 @@ def test_divide_class(random_values):
     temp = tuple(random_values)
     divide = Divide.create(*temp)
     assert divide.divide() == divide_helper(*temp)
-

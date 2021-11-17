@@ -11,7 +11,6 @@ class Calculation:
     @classmethod
     def create(cls, *tuple_args: tuple):
         """ create factory class method """
-        pass
 
 
 class Calculator(Calculation):

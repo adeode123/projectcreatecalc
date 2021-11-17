@@ -8,7 +8,7 @@ def divide_helper(*values):
     """ divide helper """
     result = 1
     for val in values:
-        result = val / result
+        result = result / val
     return result
 
 

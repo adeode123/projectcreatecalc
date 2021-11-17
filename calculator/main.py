@@ -214,7 +214,7 @@ class Divide(Calculator):
         try:
             result = 1
             for value in self.values:
-                result = value / result
+                result = result / value
             return result
         except ZeroDivisionError:
             print("Division by zero is not allowed")

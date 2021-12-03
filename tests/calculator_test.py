@@ -33,18 +33,73 @@ def subtract_helper(*values):
 @pytest.fixture(name="random_values")
 def fixture_random_values():
     """ Fixture to generate two random values """
-    num_values = random.randint(1, 10)
+    num_values = random.randint(5, 10)
     return (random.randint(1, 20) for _ in range(num_values))
 
 
 @pytest.fixture(name="random_values_with_zero")
 def fixture_random_values_with_zero():
     """ Fixture to generate two random values """
+    num_values = random.randint(1, 10)
+    return (0 for _ in range(num_values))
+
+
+@pytest.fixture(name="random_values_add")
+def fixture_random_values_add():
+    """ Fixture to generate two random values """
     df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_add.csv')
     number1, number2, operation = 0, 0, ""
     for index, row in df.iterrows():
         number1 = row[0]
         number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
+
+
+@pytest.fixture(name="random_values_subtract")
+def fixture_random_values_subtract():
+    """ Fixture to generate two random values """
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_subtract.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
+
+
+@pytest.fixture(name="random_values_multiply")
+def fixture_random_values_multiply():
+    """ Fixture to generate two random values """
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_multiply.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
+
+
+@pytest.fixture(name="random_values_divide")
+def fixture_random_values_divide():
+    """ Fixture to generate two random values """
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_divide.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
+
+
+@pytest.fixture(name="random_values_divide_zero")
+def fixture_random_values_divide_zero():
+    """ Fixture to generate two random values """
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_divide.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = 0
         operation = row[2]
     return number1, number2, operation
 
@@ -130,9 +185,12 @@ def test_count_history(calculator_object):
     assert calculator_object.count_history() == 2
 
 
-def test_calculator_addition(calculator_object, random_values):
-    """ Test calculator static method addition """
-    assert calculator_object.addition(*random_values) == sum(random_values)
+def test_calculator_addition(random_values_add):
+    """ Test calculator method addition """
+    number1, number2, operation = random_values_add
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    assert calculator_obj.factory(operation) == sum(temp)
 
 
 def test_calculator_subtraction(random_values_subtract):
@@ -166,9 +224,9 @@ def test_calculator_division_zero(random_values_divide_zero):
     calculator_obj = Calculator.create(*temp)
     assert calculator_obj.factory(operation) is None
 
-def test_calculator_division_by_zero_not_allowed(calculator_object, random_values_with_zero):
-    """ Test calculator static method division by 0 returns None """
-    assert calculator_object.division(*random_values_with_zero) is None
+# def test_calculator_division_by_zero_not_allowed(calculator_object, random_values_with_zero):
+#     """ Test calculator static method division by 0 returns None """
+#     assert calculator_object.division(*random_values_with_zero) is None
 
 
 def test_add_calculator_factory(random_values):
@@ -203,6 +261,26 @@ def test_calculator_factory_return_invalid_operation(random_values):
     """ Test calculator factory returns Invalid operation when the operation is not supported"""
     calculator_obj = Calculator.create(*random_values)
     assert calculator_obj.factory("random operation") == "Invalid Operation"
+
+
+def test_calculator_static_addition(calculator_object, random_values):
+    """ Test calculator static method addition """
+    assert Calculator.addition(*random_values) == sum(random_values)
+
+
+def test_calculator_static_subtraction(calculator_object, random_values):
+    """ Test calculator static method subtraction """
+    assert Calculator.subtraction(*random_values) == subtract_helper(*random_values)
+
+
+def test_calculator_static_multiplication(calculator_object, random_values):
+    """ Test calculator static method multiplication """
+    assert Calculator.multiplication(*random_values) == multiply_helper(*random_values)
+
+
+def test_calculator_static_division(calculator_object, random_values):
+    """ Test calculator static method division """
+    assert Calculator.division(*random_values) == divide_helper(*random_values)
 
 
 def test_add_class(random_values):

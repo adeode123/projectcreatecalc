@@ -1,3 +1,5 @@
 number1, number2, operation
 1,5,add
 2,10,subtract
+5,7,multiply
+10,2,divide

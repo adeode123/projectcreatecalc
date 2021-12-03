@@ -1,4 +1,5 @@
 """ Test for Calculator class and child classes"""
+import pandas as pd
 import random
 import pytest
 from calculator.main import Calculator, Add, Subtract, Multiply, Divide
@@ -39,8 +40,13 @@ def fixture_random_values():
 @pytest.fixture(name="random_values_with_zero")
 def fixture_random_values_with_zero():
     """ Fixture to generate two random values """
-    num_values = random.randint(1, 10)
-    return (0 for _ in range(num_values))
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_add.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
 
 
 @pytest.fixture(name="calculator_object")
@@ -49,6 +55,12 @@ def fixture_calculator_object(random_values):
     return Calculator.create(*random_values)
 
 
+# @pytest.fixture(name="calculator_add")
+# def fixture_calculator_add(random_values):
+#     """ Fixture to generate add calculator object """
+#
+#     return Calculator.create(*random_values)
+#
 @pytest.fixture(name="add")
 def fixture_add(random_values):
     """ Fixture to generate calculator object """
@@ -123,20 +135,36 @@ def test_calculator_addition(calculator_object, random_values):
     assert calculator_object.addition(*random_values) == sum(random_values)
 
 
-def test_calculator_subtraction(calculator_object, random_values):
-    """ Test calculator static method subtraction """
-    assert calculator_object.subtraction(*random_values) == subtract_helper(*random_values)
+def test_calculator_subtraction(random_values_subtract):
+    """ Test calculator method subtraction """
+    number1, number2, operation = random_values_subtract
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    assert calculator_obj.factory(operation) == subtract_helper(*temp)
 
 
-def test_calculator_multiplication(calculator_object, random_values):
-    """ Test calculator static method multiplication """
-    assert calculator_object.multiplication(*random_values) == multiply_helper(*random_values)
+def test_calculator_multiplication(random_values_multiply):
+    """ Test calculator method multiplication """
+    number1, number2, operation = random_values_multiply
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    assert calculator_obj.factory(operation) == multiply_helper(*temp)
 
 
-def test_calculator_division(calculator_object, random_values):
-    """ Test calculator static method division """
-    assert calculator_object.division(*random_values) == divide_helper(*random_values)
+def test_calculator_division(random_values_divide):
+    """ Test calculator method division """
+    number1, number2, operation = random_values_divide
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    assert calculator_obj.factory(operation) == divide_helper(*temp)
 
+
+def test_calculator_division_zero(random_values_divide_zero):
+    """ Test calculator method division """
+    number1, number2, operation = random_values_divide_zero
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    assert calculator_obj.factory(operation) is None
 
 def test_calculator_division_by_zero_not_allowed(calculator_object, random_values_with_zero):
     """ Test calculator static method division by 0 returns None """

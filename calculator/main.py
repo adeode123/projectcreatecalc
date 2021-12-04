@@ -1,3 +1,9 @@
+from calculator.calculations.addition import Addition
+from calculator.calculations.subtraction import Subtraction
+from calculator.calculations.multiplication import Multiplication
+from calculator.calculations.division import Division
+from calculator.calculations.history import History
+
 """ Calculator """
 
 
@@ -16,28 +22,28 @@ class Calculator:
 
     @staticmethod
     def get_last_calculation():
-        """ Get last calculation"""
+        """ Get last calculations"""
         return Calculator.calculator_history[-1]
 
     @staticmethod
     def get_first_calculation():
-        """ Get first calculation"""
+        """ Get first calculations"""
         return Calculator.calculator_history[0]
 
     @staticmethod
     def add_calculation_to_history(record):
-        """ Add calculation to calculation history """
+        """ Add calculations to calculations history """
         Calculator.calculator_history.append(record)
         return Calculator.calculator_history
 
     @staticmethod
     def get_last_calculation_result():
-        """ Get last calculation result """
+        """ Get last calculations result """
         return Calculator.calculator_history[-1].get("result", None)
 
     @staticmethod
     def get_last_calculation_object():
-        """ Get last calculation object """
+        """ Get last calculations object """
         return Calculator.calculator_history[-1].get("object", None)
 
     @staticmethod
@@ -57,6 +63,30 @@ class Calculator:
         return num_1 + num_2
 
     @staticmethod
+    def add_numbers(numbers: tuple):
+        calc = Addition(numbers)
+        History.append_calculation(calc)
+        return calc.get_result()
+
+    @staticmethod
+    def subtract_numbers(numbers: tuple):
+        calc = Subtraction(numbers)
+        History.append_calculation(calc)
+        return calc.get_result()
+
+    @staticmethod
+    def multiply_numbers(numbers: tuple):
+        calc = Multiplication(numbers)
+        History.append_calculation(calc)
+        return calc.get_result()
+
+    @staticmethod
+    def divide_numbers(numbers: tuple):
+        calc = Division(numbers)
+        History.append_calculation(calc)
+        return calc.get_result()
+
+    @staticmethod
     def subtraction(num_1, num_2):
         """ Subtract """
         return num_1 - num_2
@@ -70,7 +100,7 @@ class Calculator:
     def division(num_1, num_2):
         """ Division """
         try:
-            return num_1/num_2
+            return num_1 / num_2
         except ZeroDivisionError:
             print("Division by zero is not allowed")
             return None
@@ -150,3 +180,8 @@ class Divide(Calculator):
         except ZeroDivisionError:
             print("Division by zero is not allowed")
             return None
+
+
+t = (1, 2, 3, 4, 5)
+result = Calculator.add_numbers(t)
+print(result)

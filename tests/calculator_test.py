@@ -30,22 +30,22 @@ def test_get_history(calculator_object):
 
 
 def test_get_last_calculation(calculator_object):
-    """ Test get last calculation method """
+    """ Test get last calculations method """
     calculator_object.factory("add")
     assert calculator_object.get_last_calculation() == calculator_object.calculator_history[-1]
 
 
 def test_get_first_calculation(calculator_object):
-    """ Test get first calculation method """
-    # first calculation - Add
+    """ Test get first calculations method """
+    # first calculations - Add
     calculator_object.factory("add")
-    # second calculation - Divide
+    # second calculations - Divide
     calculator_object.factory("divide")
     assert isinstance(calculator_object.get_first_calculation().get("object"), Add)
 
 
 def test_add_calculation_to_history(add, calculator_object):
-    """ Test add calculation to history """
+    """ Test add calculations to history """
     result = add.add()
     record = {
             "object": add,
@@ -56,13 +56,13 @@ def test_add_calculation_to_history(add, calculator_object):
 
 
 def test_get_last_calculation_result(calculator_object):
-    """ Test get last calculation result method """
+    """ Test get last calculations result method """
     result = calculator_object.factory("add")
     assert calculator_object.get_last_calculation_result() == result
 
 
 def test_get_last_calculation_object(add, calculator_object):
-    """ Test get last calculation object method """
+    """ Test get last calculations object method """
     result = add.add()
     record = {
         "object": add,

@@ -1,10 +1,9 @@
+"""Calculator class"""
 from calculator.calculations.addition import Addition
 from calculator.calculations.subtraction import Subtraction
 from calculator.calculations.multiplication import Multiplication
 from calculator.calculations.division import Division
 from calculator.calculations.history import History
-
-""" Calculator """
 
 
 class Calculator:
@@ -64,24 +63,28 @@ class Calculator:
 
     @staticmethod
     def add_numbers(numbers: tuple):
+        """method for addition"""
         calc = Addition(numbers)
         History.append_calculation(calc)
         return calc.get_result()
 
     @staticmethod
     def subtract_numbers(numbers: tuple):
+        """method for subtract"""
         calc = Subtraction(numbers)
         History.append_calculation(calc)
         return calc.get_result()
 
     @staticmethod
     def multiply_numbers(numbers: tuple):
+        """method for multiplication"""
         calc = Multiplication(numbers)
         History.append_calculation(calc)
         return calc.get_result()
 
     @staticmethod
     def divide_numbers(numbers: tuple):
+        """method for division"""
         calc = Division(numbers)
         History.append_calculation(calc)
         return calc.get_result()
@@ -182,6 +185,6 @@ class Divide(Calculator):
             return None
 
 
-t = (1, 2, 3, 4, 5)
-result = Calculator.add_numbers(t)
-print(result)
+# t = (1, 2, 3, 4, 5)
+# result = Calculator.add_numbers(t)
+# print(result)

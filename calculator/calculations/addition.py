@@ -5,6 +5,6 @@ class Addition(Calculation):
     """Created child class Addition"""
     def get_result(self):
         result = 0.0
-        for number in self.values:
-            result = result + number
+        for float_v in self.values:
+            result = result + float_v
         return result

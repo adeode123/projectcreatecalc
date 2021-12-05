@@ -1,3 +1,4 @@
+"""created module"""
 from calculator.calculations.calculation import Calculation
 
 

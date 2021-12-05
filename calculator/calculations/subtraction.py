@@ -1,3 +1,4 @@
+"""Module imported"""
 from calculator.calculations.calculation import Calculation
 
 

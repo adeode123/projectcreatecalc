@@ -37,4 +37,3 @@ class History:
     def get_calculation(index):
         """returns specific calculations from history"""
         return History.history[index]
-

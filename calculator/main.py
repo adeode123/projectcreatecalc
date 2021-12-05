@@ -65,28 +65,28 @@ class Calculator:
     def add_numbers(numbers: tuple):
         """method for addition"""
         calc = Addition(numbers)
-        append_calculation(calc)
+        History.append_calculation(calc)
         return calc.get_result()
 
     @staticmethod
     def subtract_numbers(numbers: tuple):
         """method for subtract"""
         calc = Subtraction(numbers)
-        append_calculation(calc)
+        History.append_calculation(calc)
         return calc.get_result()
 
     @staticmethod
     def multiply_numbers(numbers: tuple):
         """method for multiplication"""
         calc = Multiplication(numbers)
-        append_calculation(calc)
+        History.append_calculation(calc)
         return calc.get_result()
 
     @staticmethod
     def divide_numbers(numbers: tuple):
         """method for division"""
         calc = Division(numbers)
-        append_calculation(calc)
+        History.append_calculation(calc)
         return calc.get_result()
 
     @staticmethod

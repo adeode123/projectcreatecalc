@@ -1,13 +1,14 @@
 """created module"""
 from calculator.calculations.calculation import Calculation
 
-"""Created child class Division"""
-
 
 class Division(Calculation):
 
+    """Created child class Division"""
+
     # pylint: disable=too-few-public-methods
     def get_result(self):
+        """gets result"""
         result = 0.0
         try:
             for float_v in self.values:

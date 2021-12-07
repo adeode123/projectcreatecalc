@@ -180,25 +180,24 @@ class Divide(Calculator):
         except ZeroDivisionError:
             print("Division by zero is not allowed")
             return None
-
-import pandas as pd
-data = pd.read_csv("C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_add.csv")
-for index, row in data.iterrows():
-    t = row
-    size = len(t)
-    operation = t.iloc[size - 1]
-    if operation == 'add':
-        result = Calculator.add_numbers(t)
-        print(result)
-    elif operation == 'subtract':
-        result = Calculator.subtract_numbers(t)
-        print(result)
-    elif operation == 'multiply':
-        result = Calculator.multiply_numbers(t)
-        print(result)
-    elif operation == 'divide':
-        result = Calculator.divide_numbers(t)
-        print(result)
+# import pandas as pd
+# data = pd.read_csv("C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_add.csv")
+# for index, row in data.iterrows():
+#     t = row
+#     size = len(t)
+#     operation = t.iloc[size - 1]
+#     if operation == 'add':
+#         result = Calculator.add_numbers(t)
+#         print(result)
+#     elif operation == 'subtract':
+#         result = Calculator.subtract_numbers(t)
+#         print(result)
+#     elif operation == 'multiply':
+#         result = Calculator.multiply_numbers(t)
+#         print(result)
+#     elif operation == 'divide':
+#         result = Calculator.divide_numbers(t)
+#         print(result)
 
 
 

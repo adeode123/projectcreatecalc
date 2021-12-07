@@ -1,8 +1,10 @@
 """A simple flask web app"""
 from flask import Flask, request
 from flask import render_template
-from calculator.calculations import Calculator
-app = Flask(__name__)
+from calculator.main import Calculator
+
+template_dir = os.path.abspath('.app/templates')
+app = Flask(__name__, template_folder=template_dir)
 
 
 @app.route("/")

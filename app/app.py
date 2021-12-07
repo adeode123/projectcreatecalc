@@ -1,20 +1,18 @@
 """A simple flask web app"""
 from flask import Flask, request
 from flask import render_template
-from calculator.calculator import Calculator
+from calculator.calculations import Calculator
 app = Flask(__name__)
 
 
 @app.route("/")
 def index():
     """index  Route Response"""
-
     return render_template('index.html')
 
-@app.route("/basicform", methods=['GET', 'POST'])
-def basicform():
-
-    """Post Request Handling"""
+    @app.route("/basicform", methods=['GET', 'POST'])
+    def basicform():
+        """Post Request Handling"""
 
     if request.method == 'POST':
         #get the values out of the form
@@ -35,15 +33,14 @@ def basicform():
 
     @app.route("/bad/<value1>/<value2>")
     def bad_calc(value1, value2):
-    """bad calc Route Response"""
+        """bad calc Route Response"""
     result = value1 + value2
     response = "The result of the calculation is: " + result + '<a href="/"> back</a>'
     return response
 
     @app.route("/good/<float:value1>/<float:value2>")
-
     def good_calc(value1, value2):
-    """good calc Route Response"""
+        """good calc Route Response"""
 
     my_tuple = (value1, value2)
     Calculator.addition(my_tuple)

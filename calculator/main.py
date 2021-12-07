@@ -182,7 +182,6 @@ class Divide(Calculator):
             return None
 
 import pandas as pd
-
 data = pd.read_csv("C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_add.csv")
 for index, row in data.iterrows():
     t = row

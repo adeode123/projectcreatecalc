@@ -1,10 +1,10 @@
 """A simple flask web app"""
 from flask import Flask, request
 from flask import render_template
-from calculator.main import Calculator
 
-template_dir = os.path.abspath('.app/templates')
-app = Flask(__name__, template_folder=template_dir)
+
+
+app = Flask(__name__)
 
 
 @app.route("/")
@@ -25,6 +25,7 @@ def index():
         #make the tuple
         my_tuple = (value1, value2)
         #this will call the correct operation
+
         getattr(Calculator, operation)(my_tuple)
         result = str(Calculator.get_last_result_value())
         return render_template('result.html', value1=value1, value2=value2, operation=operation, result=result)

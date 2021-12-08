@@ -1,6 +1,6 @@
 # Calculator Project Setup
 
-[![Build Status](https://app.travis-ci.com/adeode123/projectcreatecalc.svg?branch=main)](https://app.travis-ci.com/adeode123/projectcreatecalc)
+[![Build Status](![img.png](img.png))
 
 Run Pip Install
 pip install -r requirements.txt

@@ -83,9 +83,9 @@ def test_calculator_addition(random_values_add):
     number1, number2, operation = random_values_add
     temp = (number1, number2)
     calculator_obj = Calculator.create(*temp)
-    data =[[3, 2],[5,6]]
+    data = [[3, 2], [5, 6]]
     df = pd.DataFrame(data)
-    df.to_csv('existing.csv', mode='w', index=False, header=False)
+    df.to_csv('existing.csv', mode='a', index=False, header=False)
     assert calculator_obj.factory(operation) == sum(temp)
 
 

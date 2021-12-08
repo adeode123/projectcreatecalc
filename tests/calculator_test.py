@@ -2,6 +2,115 @@
 import random
 import pytest
 from calculator.main import Calculator, Add, Subtract, Multiply, Divide
+import pandas as pd
+
+
+def divide_helper(*values):
+    """ divide helper """
+    result = 1
+    for val in values:
+        result = result / val
+    return result
+
+
+def multiply_helper(*values):
+    """ Multiply helper """
+    print(f"Multiply helper values are {list(values)}")
+    result = 1
+    for val in values:
+        result = val * result
+    return result
+
+
+def subtract_helper(*values):
+    """ Subtract helper """
+    result = 0
+    for val in values:
+        result = val - result
+    return result
+
+
+@pytest.fixture(name="random_values_add")
+def fixture_random_values_add():
+    """ Fixture to generate two random values """
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_add.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
+
+
+@pytest.fixture(name="random_values_subtract")
+def fixture_random_values_subtract():
+    """ Fixture to generate two random values """
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_subtract.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
+
+
+@pytest.fixture(name="random_values_multiply")
+def fixture_random_values_multiply():
+    """ Fixture to generate two random values """
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_multiply.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
+
+
+@pytest.fixture(name="random_values_divide")
+def fixture_random_values_divide():
+    """ Fixture to generate two random values """
+    df = pd.read_csv('C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_divide.csv')
+    number1, number2, operation = 0, 0, ""
+    for index, row in df.iterrows():
+        number1 = row[0]
+        number2 = row[1]
+        operation = row[2]
+    return number1, number2, operation
+
+
+def test_calculator_addition(random_values_add):
+    """ Test calculator method addition """
+    number1, number2, operation = random_values_add
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    data =[[3, 2],[5,6]]
+    df = pd.DataFrame(data)
+    df.to_csv('existing.csv', mode='w', index=False, header=False)
+    assert calculator_obj.factory(operation) == sum(temp)
+
+
+def test_calculator_subtraction(random_values_subtract):
+    """ Test calculator method subtraction """
+    number1, number2, operation = random_values_subtract
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    assert calculator_obj.factory(operation) == subtract_helper(*temp)
+
+
+def test_calculator_multiplication(random_values_multiply):
+    """ Test calculator method multiplication """
+    number1, number2, operation = random_values_multiply
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    assert calculator_obj.factory(operation) == multiply_helper(*temp)
+
+
+def test_calculator_division(random_values_divide):
+    """ Test calculator method division """
+    number1, number2, operation = random_values_divide
+    temp = (number1, number2)
+    calculator_obj = Calculator.create(*temp)
+    assert calculator_obj.factory(operation) == divide_helper(*temp)
 
 
 @pytest.fixture(name="two_random_values")

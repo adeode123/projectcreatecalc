@@ -10,12 +10,18 @@
 {% endblock %}
 {% block content %}
 
-    <h1>HTML Form</h1>
+    <h1>My Calculator</h1>
+     {% if error %}
+         <div class="alert alert-danger error" role="alert">
+             {{ error }}
+        </div>
+      {% endif %}
+  <div class="mb-3 row">
 
-    <form action="/basicform" method="POST">
-        <label for="value1">Value 1:</label><br>
+    <form action="/calculator" method="POST">
+        <label for="value1" class="col-sm-2 col-form-label">Value 1:</label><br>
         <input type="text" id="value1" name="value1" value="1"><br>
-        <label for="value2">Value 2:</label><br>
+        <label for="value2" class="col-sm-2 col-form-label">Value 2:</label><br>
         <input type="text" id="value2" name="value2" value="2"><br>
         <fieldset>
         <legend>Operation</legend>
@@ -35,4 +41,5 @@
 
         <input type="submit" value="Submit">
     </form>
-
+  </div>
+{% endblock %}

@@ -10,4 +10,4 @@ script:
 branches:
   only:
     - main
-    - webCalc-part1
+    - webcalcpart3

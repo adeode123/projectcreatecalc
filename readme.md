@@ -1,6 +1,6 @@
 # Calculator Project Setup
 
-[![Build Status](![img.png](img.png)
+[![Build Status]
 
 Run Pip Install
 pip install -r requirements.txt

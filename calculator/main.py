@@ -1,19 +1,32 @@
-from calculator.calculations.addition import Addition
-from calculator.calculations.subtraction import Subtraction
-from calculator.calculations.multiplication import Multiplication
-from calculator.calculations.division import Division
-from calculator.calculations.history import History
-
 """ Calculator """
 
+import pandas as pd
 
-class Calculator:
+class Calculation:
+    """ Abstract base class for Calculations"""
+
+    # pylint: disable=too-few-public-methods
+    def __init__(self, values):
+        self.values = values
+
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+
+
+class Calculator(Calculation):
     """ Calculator class """
     calculator_history = []
 
-    def __init__(self, first_num, second_num):
-        self.first_num = first_num
-        self.second_num = second_num
+    def __init__(self, values):
+        super().__init__(self)
+        self.values = values
+
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
 
     @staticmethod
     def get_history():
@@ -22,28 +35,28 @@ class Calculator:
 
     @staticmethod
     def get_last_calculation():
-        """ Get last calculations"""
+        """ Get last calculation"""
         return Calculator.calculator_history[-1]
 
     @staticmethod
     def get_first_calculation():
-        """ Get first calculations"""
+        """ Get first calculation"""
         return Calculator.calculator_history[0]
 
     @staticmethod
     def add_calculation_to_history(record):
-        """ Add calculations to calculations history """
+        """ Add calculation to calculation history """
         Calculator.calculator_history.append(record)
         return Calculator.calculator_history
 
     @staticmethod
     def get_last_calculation_result():
-        """ Get last calculations result """
+        """ Get last calculation result """
         return Calculator.calculator_history[-1].get("result", None)
 
     @staticmethod
     def get_last_calculation_object():
-        """ Get last calculations object """
+        """ Get last calculation object """
         return Calculator.calculator_history[-1].get("object", None)
 
     @staticmethod
@@ -58,49 +71,40 @@ class Calculator:
         return len(Calculator.calculator_history)
 
     @staticmethod
-    def addition(num_1, num_2):
+    def addition(*tuple_args: tuple):
         """ Add """
-        return num_1 + num_2
+        result = 0
+        for arg in tuple_args:
+            result = arg + result
+        return result
 
     @staticmethod
-    def add_numbers(numbers: tuple):
-        calc = Addition(numbers)
-        History.append_calculation(calc)
-        return calc.get_result()
-
-    @staticmethod
-    def subtract_numbers(numbers: tuple):
-        calc = Subtraction(numbers)
-        History.append_calculation(calc)
-        return calc.get_result()
-
-    @staticmethod
-    def multiply_numbers(numbers: tuple):
-        calc = Multiplication(numbers)
-        History.append_calculation(calc)
-        return calc.get_result()
-
-    @staticmethod
-    def divide_numbers(numbers: tuple):
-        calc = Division(numbers)
-        History.append_calculation(calc)
-        return calc.get_result()
-
-    @staticmethod
-    def subtraction(num_1, num_2):
+    def subtraction(*tuple_args: tuple):
         """ Subtract """
-        return num_1 - num_2
+        result = 0
+        values = list(tuple_args)
+        for val in values:
+            result = val - result
+        return result
 
     @staticmethod
-    def multiplication(num_1, num_2):
+    def multiplication(*tuple_args: tuple):
         """ Multiplication """
-        return num_1 * num_2
+        result = 1
+        values = list(tuple_args)
+        for val in values:
+            result = val * result
+        return result
 
     @staticmethod
-    def division(num_1, num_2):
+    def division(*tuple_args: tuple):
         """ Division """
         try:
-            return num_1 / num_2
+            result = 1
+            values = list(tuple_args)
+            for val in values:
+                result = val / result
+            return result
         except ZeroDivisionError:
             print("Division by zero is not allowed")
             return None
@@ -108,7 +112,7 @@ class Calculator:
     def factory(self, operation):
         """ Factory helper method """
         if operation == 'add':
-            add_object = Add(first_num=self.first_num, second_num=self.second_num)
+            add_object = Add.create(*self.values)
             result = add_object.add()
             Calculator.add_calculation_to_history({
                 "result": result,
@@ -117,7 +121,7 @@ class Calculator:
             return result
 
         if operation == 'subtract':
-            subtract_object = Subtract(first_num=self.first_num, second_num=self.second_num)
+            subtract_object = Subtract.create(*self.values)
             result = subtract_object.subtract()
             Calculator.add_calculation_to_history({
                 "result": result,
@@ -126,7 +130,7 @@ class Calculator:
             return result
 
         if operation == 'multiply':
-            multiply_object = Multiply(first_num=self.first_num, second_num=self.second_num)
+            multiply_object = Multiply.create(*self.values)
             result = multiply_object.multiply()
             Calculator.add_calculation_to_history({
                 "result": result,
@@ -135,7 +139,7 @@ class Calculator:
             return result
 
         if operation == 'divide':
-            divide_object = Divide(first_num=self.first_num, second_num=self.second_num)
+            divide_object = Divide.create(*self.values)
             result = divide_object.divide()
             Calculator.add_calculation_to_history({
                 "result": result,
@@ -145,60 +149,85 @@ class Calculator:
 
         return "Invalid Operation"
 
+    @staticmethod
+    def readHistoryFromCSV():
+        """Read the history from csv and put it into the history """
+        pass
+
+    @staticmethod
+    def writeHistoryToCSV():
+        """Write the history to csv file"""
+    df = pd.DataFrame(calculator_history)
+    df.to_csv("history.csv")
+
 
 class Add(Calculator):
     """ Add inherited from Calculator"""
 
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
+
     def add(self):
         """ Add from child class"""
-        return self.first_num + self.second_num
+        result = 0
+        for val in self.values:
+            result = val + result
+        return result
 
 
 class Subtract(Calculator):
     """ Subtract inherited from Calculator """
 
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
+
     def subtract(self):
         """ Subtract from child class"""
-        return self.first_num - self.second_num
+        result = 0
+        for value in self.values:
+            result = value - result
+        return result
 
 
 class Multiply(Calculator):
     """ Multiply inherited from Calculator """
 
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
+
     def multiply(self):
         """ Multiply from child class """
-        return self.first_num * self.second_num
+        result = 1
+        for value in self.values:
+            result = value * result
+        return result
 
 
 class Divide(Calculator):
     """ Divide inherited from Calculator """
 
+    @classmethod
+    def create(cls, *tuple_args: tuple):
+        """ create factory class method """
+        values = list(tuple_args)
+        return cls(values)
+
     def divide(self):
         """ Divide from child class """
         try:
-            return self.first_num / self.second_num
+            result = 1
+            for value in self.values:
+                result = result / value
+            return result
         except ZeroDivisionError:
             print("Division by zero is not allowed")
             return None
-# import pandas as pd
-# data = pd.read_csv("C:/Users/Abosede/PycharmProjects/calc_part2/tests/input_add.csv")
-# for index, row in data.iterrows():
-#     t = row
-#     size = len(t)
-#     operation = t.iloc[size - 1]
-#     if operation == 'add':
-#         result = Calculator.add_numbers(t)
-#         print(result)
-#     elif operation == 'subtract':
-#         result = Calculator.subtract_numbers(t)
-#         print(result)
-#     elif operation == 'multiply':
-#         result = Calculator.multiply_numbers(t)
-#         print(result)
-#     elif operation == 'divide':
-#         result = Calculator.divide_numbers(t)
-#         print(result)
-
-
-
-

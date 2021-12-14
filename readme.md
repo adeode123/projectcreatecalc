@@ -1,4 +1,4 @@
-# Calculator Project Setup
+# Calculator Project 
 
 [project3 video](https://youtu.be/1v4SYiwZgT4)
 

@@ -6,7 +6,138 @@
   }
 </style>
 {% endblock %} {% block content %}
+<main>
+        <header class="display-6 text-center my-3 mx-3">DESIGN PATTERNS</header>
+        <article class="main-width">
+            <div>
+                <h3>What are Design Patterns?</h3>
+                <p>According to the book called “Design Patterns: Elements of Reusable Object-Oriented Software by
+                    GoF(Gang of Four)”.
+                    Design patterns are referred to as the Gang of Four patterns. They are considered the foundation for
+                    all other patterns.
+                    They are Categorized into three groups: Structural, Creational and Behavioural.
+                </p>
+                <p>Design patterns describe the structure of code classes and how these classes should collaborate,
+                    building reusable and
+                    extensible software.</p>
+                <p>Learning these design patterns helps to communicate ideas with other developers at a more abstract
+                    level without writing
+                    unnecessarily long lines of codes. It also helps new developers understand new programming
+                    languages, libraries and
+                    frameworks quickly.</p>
+            </div>
+            <div>
+                <h3>Structural Design Patterns:</h3>
+                <p>These types of design patterns are focused on Classes and Objects compositions that are the
+                    relationships between these
+                    objects. Structural class patterns use inheritance to compose interfaces and Object patterns define
+                    ways to compose
+                    objects to obtain new functionality.</p>
+                <p>A decorator is a type of a structural design pattern. It instantiates the object and adds
+                    responsibility to the object.
+                    In the calculator code example, the values are the attributes of the calculator. This makes using
+                    values alone in the
+                    other part of the programs possible without having to type self repeatedly.</p>
+                <div class="code-txt code-width">
+                    <i class="space1">def __init__(self, values):</i><br>
+                    <i class="space1">self.values = values</i><br>
+                </div>
+            </div>
+            <div>
+                <h3>Creational Design Patterns:</h3>
+                <p>Creational design patterns are all about class instantiation and creating objects. This pattern can
+                    be further divided
+                    into class-creation patterns and object-creational patterns, in class creation patterns the
+                    inheritance is used
+                    effectively in the instantiation process, while the object-creation patterns use delegation
+                    effectively to get the job
+                    done.</p>
+                <p>Factory method is one of the subdivisions of creational structure. It is used to create an instance
+                    of several derived
+                    classes. It helps us to avoid constant code modification whenever a new object needs to be created.
+                    For instance in our
+                    calculator example I have a factory function that performs different methods without needing to
+                    change the other.</p>
+                <div class="code-txt code-width">
+                    <i>def factory(self, operation):</i><br>
+                    <i class="space1">""" Factory helper method """</i><br>
+                    <i class="space1">if operation == 'add':</i><br>
+                    <i class="space2">add_object = Add.create(*self.values)</i><br>
+                    <i class="space2">result = add_object.add()</i><br>
+                    <i class="space1">Calculator.add_calculation_to_history({</i><br>
+                    <i class="space2">"result": result,</i><br>
+                    <i class="space2">"object": add_object</i><br>
+                    <i class="space1">})</i><br>
+                    <i class="space1">return result</i><br>
+                </div>
+                <div class="code-txt code-width">
+                    <i>if operation == 'subtract':</i><br>
+                    <i class="space1">subtract_object = Subtract.create(*self.values)</i><br>
+                    <i class="space1">result = subtract_object.subtract()</i><br>
+                    <i class="space1">Calculator.add_calculation_to_history({</i><br>
+                    <i class="space2">"result": result,</i><br>
+                    <i class="space2">"object": subtract_object</i><br>
+                    <i class="space1">})</i><br>
+                    <i class="space1">return result</i><br>
+                </div>
+                <div class="code-txt code-width">
+                    <i>if operation == 'multiply':</i><br>
+                    <i class="space1">multiply_object = Multiply.create(*self.values)</i><br>
+                    <i class="space1">result = multiply_object.multiply()</i><br>
+                    <i class="space1">Calculator.add_calculation_to_history({</i><br>
+                    <i class="space2">"result": result,</i><br>
+                    <i class="space2">"object": multiply_object</i><br>
+                    <i class="space1">})</i><br>
+                    <i class="space1">return result</i><br>
+                </div>
+                <div class=" code-txt code-width">
+                    <i>if operation == 'divide':</i><br>
+                    <i class="space1">divide_object = Divide.create(*self.values)</i><br>
+                    <i class="space1">result = divide_object.divide()</i><br>
+                    <i class="space1">Calculator.add_calculation_to_history({</i><br>
+                    <i class="space2">"result": result,</i><br>
+                    <i class="space2">"object": divide_object</i><br>
+                    <i class="space1">})</i><br>
+                    <i class="space1">return result</i><br>
+                    <i class="space1">return "Invalid Operation"</i><br>
+                </div>
+            </div>
+            <div>
+                <h3>Behavioral Designs Patterns:</h3>
+                <p>Behavioral design patterns focus on the communications and interactions between objects and their
+                    responsibilities in a
+                    code.
+                    They are the largest part of the design pattern. They basically show the relationships between
+                    functions.</p>
+                <p>For instance in our calculator code, the fixture of clear history is an example of a command which is
+                    a type of
+                    behavioral design pattern.</p>
+                <div class=" code-txt code-width">
+                    <i>def test_clear_history(calculator_object):</i><br>
+                    <i class="space1">""" Test clear history of calculator """</i><br>
+                    <i class="space1">calculator_object.factory("add")</i><br>
+                    <i class="space1">calculator_object.factory("multiply")</i><br>
+                    <i class="space1">calculator_object.clear_history()</i><br>
+                    <i class="space1">assert len(calculator_object.get_history()) == 0</i><br>
+                </div>
+            </div>
+            <div>
+                <h3>Memento is another type of design pattern.</h3>
+                <p>This pattern saves and restores an object’s internal state. A good example of the memento pattern
+                    would be the undo
+                    button or in the case of the calculator code, the history function in the calculator can be referred
+                    to as the memento.</p>
+                <div class="code-txt code-width">
+                    <i>def get_history():</i><br>
+                    <i class="space1">""" History of calculator operations"""</i><br>
+                    <i class="space1">return Calculator.calculator_history</i><br>
+                </div>
+                <a href="https://www.geeksforgeeks.org/python-design-patterns/">
+                    <p>For more info</p>
+                </a>
+            </div>
 
-This is a test file
+        </article>
+    </main>
 
 {% endblock %}

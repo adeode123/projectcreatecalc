@@ -1,3 +1,7 @@
 timestamp,filename,record_number,operation,result
 1639446676.9661422,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('1', '2')",add,3
 1639446824.838704,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('1', '3')",divide,3.0
+1639503836.0370739,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('10', '2')",multiply,20
+1639503850.7271254,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('10', '0')",multiply,0
+1639503865.5535243,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('0', '2')",divide,None
+1639504340.0132306,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('16', '2')",multiply,32

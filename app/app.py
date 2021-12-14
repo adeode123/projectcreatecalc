@@ -2,6 +2,9 @@
 from flask import Flask
 from app.controllers.index_controller import IndexController
 from app.controllers.calculator_controller import CalculatorController
+from app.controllers.all_results_controller import ResultsController
+from app.controllers.test_controller import TestController
+
 from werkzeug.debug import DebuggedApplication
 
 app = Flask(__name__)
@@ -19,3 +22,11 @@ def calculator_get():
 @app.route("/calculator", methods=['POST'])
 def calculator_post():
     return CalculatorController.post()
+
+@app.route("/results", methods=['GET'])
+def get_calculator_results():
+    return ResultsController.get()
+
+@app.route("/test-route", methods=['GET'])
+def get_test_route():
+    return TestController.get()

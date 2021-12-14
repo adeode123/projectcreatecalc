@@ -1,0 +1,37 @@
+{% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %}
+{{ super() }}
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %} {% block content %}
+
+<h1>Results from previous calculation</h1>
+<div class="mb-3 row">
+  {% if all_results %}
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <!-- <th scope="col">#</th> -->
+        {% for header in headers %}
+        <th scope="col">{{ header | replace("_", " ") | upper }}</th>
+        {% endfor %}
+      </tr>
+    </thead>
+    <tbody>
+      <!-- <th scope="row">1</th> -->
+      {% for results in all_results %}
+      <tr>
+        {% for result in results %}
+        <td>{{ result }}</td>
+        {% endfor %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <h1>There are no previous calculations</h1>
+  {% endif %}
+</div>
+{% endblock %}

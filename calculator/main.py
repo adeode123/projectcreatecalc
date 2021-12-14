@@ -1,6 +1,7 @@
 """ Calculator """
 
 import pandas as pd
+import time
 
 class Calculation:
     """ Abstract base class for Calculations"""
@@ -17,16 +18,18 @@ class Calculation:
 class Calculator(Calculation):
     """ Calculator class """
     calculator_history = []
+    history_log_file = r"C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv"
 
     def __init__(self, values):
         super().__init__(self)
-        self.values = values
+        self.raw_values = values
+        self.values = list(values)
 
     @classmethod
     def create(cls, *tuple_args: tuple):
         """ create factory class method """
-        values = list(tuple_args)
-        return cls(values)
+        # values = list(tuple_args)
+        return cls(tuple_args)
 
     @staticmethod
     def get_history():
@@ -71,6 +74,22 @@ class Calculator(Calculation):
         return len(Calculator.calculator_history)
 
     @staticmethod
+    def get_history_from_csv():
+        """Read the history from csv and put it into the history """
+        try:
+            df = pd.read_csv(Calculator.history_log_file)
+            Calculator.calculator_history = df.values.tolist()
+        except FileNotFoundError:
+            print("No history exists for this session")
+
+    @staticmethod
+    def write_history_to_csv():
+        """Write the history to csv file"""
+        df = pd.DataFrame.from_dict({"row_1": Calculator.get_last_calculation()}, orient="index")
+        df.to_csv(Calculator.history_log_file, mode="a", header=False, index=False)
+        return None
+
+    @staticmethod
     def addition(*tuple_args: tuple):
         """ Add """
         result = 0
@@ -111,54 +130,36 @@ class Calculator(Calculation):
 
     def factory(self, operation):
         """ Factory helper method """
+        # result = 0
+
         if operation == 'add':
             add_object = Add.create(*self.values)
             result = add_object.add()
-            Calculator.add_calculation_to_history({
-                "result": result,
-                "object": add_object
-            })
-            return result
 
-        if operation == 'subtract':
+        elif operation == 'subtract':
             subtract_object = Subtract.create(*self.values)
             result = subtract_object.subtract()
-            Calculator.add_calculation_to_history({
-                "result": result,
-                "object": subtract_object
-            })
-            return result
 
-        if operation == 'multiply':
+        elif operation == 'multiply':
             multiply_object = Multiply.create(*self.values)
             result = multiply_object.multiply()
-            Calculator.add_calculation_to_history({
-                "result": result,
-                "object": multiply_object
-            })
-            return result
 
-        if operation == 'divide':
+        elif operation == 'divide':
             divide_object = Divide.create(*self.values)
             result = divide_object.divide()
-            Calculator.add_calculation_to_history({
-                "result": result,
-                "object": divide_object
-            })
-            return result
 
-        return "Invalid Operation"
+        else:
+            return "Invalid Operation"
 
-    @staticmethod
-    def readHistoryFromCSV():
-        """Read the history from csv and put it into the history """
-        pass
-
-    @staticmethod
-    def writeHistoryToCSV():
-        """Write the history to csv file"""
-    df = pd.DataFrame(calculator_history)
-    df.to_csv("history.csv")
+        history = {
+            "timestamp": str(time.time()),
+            "filename": str(Calculator.history_log_file),
+            "record_number": str(self.raw_values),
+            "operation": operation,
+            "result": str(result)
+        }
+        Calculator.add_calculation_to_history(history)
+        return result
 
 
 class Add(Calculator):
@@ -167,7 +168,9 @@ class Add(Calculator):
     @classmethod
     def create(cls, *tuple_args: tuple):
         """ create factory class method """
-        values = list(tuple_args)
+        values = []
+        for val in tuple_args:
+            values.append(int(val))
         return cls(values)
 
     def add(self):
@@ -184,7 +187,9 @@ class Subtract(Calculator):
     @classmethod
     def create(cls, *tuple_args: tuple):
         """ create factory class method """
-        values = list(tuple_args)
+        values = []
+        for val in tuple_args:
+            values.append(int(val))
         return cls(values)
 
     def subtract(self):
@@ -201,7 +206,9 @@ class Multiply(Calculator):
     @classmethod
     def create(cls, *tuple_args: tuple):
         """ create factory class method """
-        values = list(tuple_args)
+        values = []
+        for val in tuple_args:
+            values.append(int(val))
         return cls(values)
 
     def multiply(self):
@@ -218,7 +225,9 @@ class Divide(Calculator):
     @classmethod
     def create(cls, *tuple_args: tuple):
         """ create factory class method """
-        values = list(tuple_args)
+        values = []
+        for val in tuple_args:
+            values.append(int(val))
         return cls(values)
 
     def divide(self):
@@ -226,7 +235,7 @@ class Divide(Calculator):
         try:
             result = 1
             for value in self.values:
-                result = result / value
+                result = value / result
             return result
         except ZeroDivisionError:
             print("Division by zero is not allowed")

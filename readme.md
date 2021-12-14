@@ -1,6 +1,6 @@
 # Calculator Project Setup
 
-[project 3](https://youtu.be/1v4SYiwZgT4)
+[project3 video](https://youtu.be/1v4SYiwZgT4)
 
 Run Pip Install
 pip install -r requirements.txt

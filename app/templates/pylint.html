@@ -1,0 +1,166 @@
+{% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %}
+{{ super() }}
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %} {% block content %}
+
+<header>
+    <h1 class="myfont">Pylint Tutorial</h1>
+</header>
+<article>
+    <h3>What is Pylint?</h3>
+    <p>For a new programmer writing codes can be frustrating if you do not have pointers to show why you are getting
+        errors or how you can fix the errors.
+        This tutorial will be introducing you to one of python's tools that can help point out bugs in your codes and
+        suggest ways to debug.
+        The tool is called pylint.
+        Pylint is one of the programming linters used to inspect python code, identify the issues, and suggest automated
+        ways to meet the minimum quality standard.
+        It also ensures that python codes meet Python's PEP8 style guide (see link for more information).
+    </p>
+    <h3> How to install pylint?</h3>
+    <ul>
+        <li>
+            Pylint can be installed on different IDEs by running the code below in your working environment terminal
+        </li>
+        <li>
+            pip install pylint
+        </li>
+    </ul>
+    <h4>I will be using pyCharm to illustrate how pylint installation works</h4>
+    <img src="{{ url_for('static', filename='images/projectimages/pylintimg.PNG') }}">
+    <p> Image 1.1</p>
+    <p>This message indicates that pylint already exists in my working environment</p>
+    <p> If you install it for the first time, it will say pylint is successfully installed.</p>
+    <h3>Lets see how pylint works?</h3>
+    <p>I will be using a simple calculator program to explain how pylint works.</p>
+    <img src="{{ url_for('static', filename='images/projectimages/Capture1.PNG')}}">
+    <p>Image 1.2</p>
+    <p>Using the command pylint main.py(you will notice that main.py is the name of my python file) as shown in image
+        1.3 below.
+        It showed that my code scored a 7.50/10 and pointed out that, on line 21,there is a trailing whitespace and line
+        13 has a missing a function docstring.
+    </p>
+    <img src="{{ url_for('static', filename='images/projectimages/pylint_sample2.PNG')}}">
+    <p>Image 1.3</p>
+    <p>Note that pylint could not tell that the descriptions in the docstrings in lines 9 and 19 were incorrect, but it
+        could tell that line 14 was missing a docstring.
+        Hence, pylint is not 100% perfect at telling errors in a code but a very necessary tool for writing a quality
+        code.</p>
+    <p>After following the suggestions and re-running pylint the score improved of 10/10 meaning that my code got a
+        +1.25 bump on my second re-run after the previous 7.50/10 score.
+        See image below in image 1.4.</p>
+    <img src="{{ url_for('static', filename='images/projectimages/captimg3.PNG')}}">
+    <p>Image 1.4 </p>
+    <h3>Some Object Oriented Programming terms to keep in mind are:</h3>
+    <ul>
+        <li>
+            <h5>Class</h5>
+            <p>A class is like an object constructor, it is a blueprint for creating objects. It is a guide for creating
+                objects. To create a class in python we use the keyword class.</p>
+            <p>For more information <a href="https://www.w3schools.com/python/python_classes.asp"> click</a></p>
+        </li>
+        <li>
+            <h5>Constructor</h5>
+            <p>The constructor initializes the values of objects in a class. The constructor example below, assigns
+                values,
+                first_num and second_num to the class calculator object created above using the __init__() function. For more information
+                <a href="https://www.programiz.com/python-programming/object-oriented-programming"> click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Class method</h5>
+            <p> A class method is a method that is bound to the class and not the objects in the class. So for instance
+                in my example below, my function start can modify every instance in my class Calculator.
+                <a href="https://www.programiz.com/python-programming/object-oriented-programming"> click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Instantiation</h5>
+            <p>Instantiation is creating new objects from a class. For more information
+                <a href="https://www.programiz.com/python-programming/object-oriented-programming"> click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Object</h5>
+            <p>According to study.com, an object is a component of a program that knows how to perform certain actions
+                and how to interact with other elements of the program. It is the basic unit of object- oriented
+                programming. For more information
+                <a href="https://www.programiz.com/python-programming/object-oriented-programming"> click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Namespace</h5>
+            <p>It is a system that has a unique name for each and every object in python. for more information <a
+                    href="https://www.geeksforgeeks.org/namespaces-and-scope-in-python/">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Fixture</h5>
+            <p>Fixtures are functions that will run before each test function that it is applied to. For more
+                information
+                <a href="https://www.geeksforgeeks.org/namespaces-and-scope-in-python/">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Type hint</h5>
+            <p>Type hint tells the type of argument that should/will be passed into a variable.
+                <a href=https://www.geeksforgeeks.org/namespaces-and-scope-in-python/">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Type cast</h5>
+            <p>This is when a data type is converted from one type to another. For more information
+                <a href="https://www.geeksforgeeks.org/type-casting-in-python-implicit-and-explicit-with-examples/">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Unit test</h5>
+            <p>It is testing individual components of a software program or application. This is done to ensure that all
+                individual parts are working as intended. For more information
+                <a href="https://www.programiz.com">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Static</h5>
+            <p>Static methods are methods that are bound to a class rather than its object.They do not require a class
+                instance creation. Hence, they are independent of the class object
+                <a href=https://www.geeksforgeeks.org/namespaces-and-scope-in-python/">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Factory</h5>
+            <p>Factory Method is a design for creating patterns used to create concrete implementations of a common
+                interface.
+                <a href="https://realpython.com/">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Facade</h5>
+            <p>Facade is a structural design pattern that provides a simplified (but limited) interface to a complex
+                system of classes. It also moves unwanted dependencies to one place. For more information,
+                <a href=" https://refactoring.guru/">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Design patterns</h5>
+            <p>According to geeksforgeeks.com website, design patterns is the most essential part of Software Engineering,
+                as they provide the general repeatable solution to a commonly occurring problem in software design. They
+                usually represent some of the best practices adopted by experienced object-oriented software
+                developers. For more information
+                <a href="https://www.geeksforgeeks.org/">click</a>
+            </p>
+        </li>
+        <li>
+            <h5>Property</h5>
+            <p>Property in object oriented programming can refer to the attributes of a defined class
+                <a href="https://www.geeksforgeeks.org/">click</a>
+            </p>
+        </li>
+    </ul>
+</article>
+
+{% endblock %}

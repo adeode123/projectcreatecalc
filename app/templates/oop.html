@@ -1,0 +1,119 @@
+{% extends "base.html" %} {% block title %}Index{% endblock %} {% block head %}
+{{ super() }}
+<style type="text/css">
+  .important {
+    color: #336699;
+  }
+</style>
+{% endblock %} {% block content %}
+
+<main>
+    <header class="display-6 text-center my-3 mx-3">OBJECT ORIENTED PROGRAMMING USING A CALCULATOR</header>
+    <img class="img-size" src="https://lilly021.com/wp-content/uploads/2020/09/javier-garcia-chavez-bdZ3bzRde5g-unsplash-1024x600.jpg"
+         alt="">
+    <article class="main-width">
+        <div>
+            <h3>Encapsulation: </h3>
+            <p>Encapsulation describes the idea of wrapping data and the methods that work on the data within one
+                unit. An example of
+                encapsulation is a class as it encapsulates all the data that is member functions, variables, etc.
+            </p>
+            <div class="bg-dark code-txt code-width">
+                <p><i>class Calculator</i></p>
+                <p><i class="comment">""" Calculator class """</i><br><br>
+
+                    <i>def __init__(self, first_num, second_num)</i>:<br>
+                    <i class="space1">self.first_num = first_num</i><br>
+                    <i class="space1">self.second_num = second_num</i>
+                </p>
+
+                <p><i>def addition():</i><br>
+                    <i class="comment space1">""" Add """</i><br>
+                    <i class="space1">return self.num_1 + self.num_2</i><br>
+
+                    <i>def multiplication():</i><br>
+                    <i class="comment space1">""" Multiplication """</i><br>
+                    <i class="space1">return self.num_1 * self.num_2</i><br>
+                </p>
+            </div>
+        </div>
+        <div>
+            <h3>Inheritance: </h3>
+            <p>Inheritance allows inheriting attributes and methods from a parent class. It enables creating
+                subclasses and getting all the functions of our parent class, and allows the ability to overwrite or add completely new
+                functions.
+                without affecting the parent class.</p>
+            <div class="bg-dark code-txt code-width">
+                <p><i>class Calculator</i></p>
+                <p><i class="comment">""" Calculator class """</i><br><br>
+
+                    <i>def __init__(self, first_num, second_num)</i>:<br>
+                    <i class="space1">self.first_num = first_num</i><br>
+                    <i class="space1">self.second_num = second_num</i>
+                </p>
+            </div>
+            <p>We defined addition and multiplication in the parent class above. Now we are inheriting the
+                calculator class to
+                implement subtraction.</p>
+        </div>
+        <div>
+            <h3>Polymorphism:</h3>
+            <p>It refers to the use of a single type entity (method, operator or object) to represent different
+                types in different
+                scenarios.</p>
+            <div class="bg-dark code-txt code-width">
+                <p><i>class Calculator:</i></p>
+                <p><i class="comment">""" Calculator class """</i><br><br>
+
+                    <i>def __init__(self, first_num, second_num):</i><br>
+                    <i class="space1">self.first_num = first_num</i><br>
+                    <i class="space1">self.second_num = second_num</i>
+                </p>
+                </p>
+                <p><i>def addition():</i><br>
+                    <i class="comment space1">""" Add """</i><br>
+                    <i class="space1">return self.num_1 + self.num_2</i><br>
+                </p>
+                <p>
+                    <i>class Add(Calculator):</i><br>
+                    <i class="comment space1">""" Add inherited from Calculator"""</i><br>
+                    <i>def addition (self):</i><br>
+                    <i class="comment space1">""" Add from child class"""</i><br>
+                    <i class="space1">return self.first_num + self.second_num</i><br>
+                </p>
+            </div>
+        </div>
+        <div>
+            <h3>Abstraction: </h3>
+            <p>Abstraction in OOP is a process of hiding the real implementation of the method by only showing a method signature.</p>
+            <div class="bg-dark code-txt code-width">
+                <p><i>class Calculation:</i></p>
+                <p><i class="comment">""" Abstract base class for Calculations"""</i><br>
+                <p><i class="comment"># pylint: disable=too-few-public-methods</i><br>
+
+                    <i>def __init__(self, values):</i><br>
+                    <i class="space1">self.values = values</i><br><br>
+                    <i>@classmethod</i>
+                    <i>def create(cls, *tuple_args: tuple):</i>
+                <p><i class="comment">""" create factory class method """</i><br>
+                <p><i>class Add(Calculator):</i></p>
+                <p><i class="comment">""" Add inherited from Calculator"""</i><br>
+                <p><i class="comment"># pylint: disable=too-few-public-methods</i><br>
+                    <i>@classmethod</i>
+                    <i>def create(cls, *tuple_args: tuple):</i>
+                <p><i class="comment">""" create factory class method """</i><br>
+                    <i class="space1">values = list(tuple_args)</i><br>
+                    <i class="space1">return cls(values)</i><br><br>
+                    <i>def add(self):</i>
+                <p><i class="comment">""" Add from child class"""</i><br>
+                    <i class="space1">result = 0</i><br>
+                    <i class="space1">for val in self.values:</i><br>
+                    <i class="space2">result = val + result</i><br>
+                    <i class="space1">return result</i><br>
+                </p>
+            </div>
+        </div>
+    </article>
+</main>
+
+{% endblock %}

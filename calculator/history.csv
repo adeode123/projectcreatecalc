@@ -5,3 +5,7 @@ timestamp,filename,record_number,operation,result
 1639503850.7271254,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('10', '0')",multiply,0
 1639503865.5535243,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('0', '2')",divide,None
 1639504340.0132306,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('16', '2')",multiply,32
+1639507710.4940176,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('18', '2')",subtract,-16
+1639507816.7098057,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('11', '2')",multiply,22
+1639507950.4013603,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('17', '28')",add,45
+1639508035.2263112,C:\Users\Abosede\PycharmProjects\calc_part2\calculator\history.csv,"('18', '2')",add,20
